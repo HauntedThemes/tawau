@@ -1,0 +1,21 @@
+{{!-- This is the search container - visible after a user clicks the search button --}}
+<div class="search-container">
+    <form>
+        <div class="container">
+            <input id="search-field" placeholder="Search" autocomplete="off"/>
+            <span class="search-trigger"></span>
+        </div>
+    </form>
+    <div class="container">
+        <ul id="results"></ul>
+    </div>
+</div>
+
+{{!-- This is the menu container - visible after a user clicks the menu button --}}
+<nav class="nav">
+    <ul>
+        {{#foreach navigation}}
+            <li class="nav-{{slug}}{{#if current}} nav-current{{/if}}"><a href="{{url absolute="true"}}" title="{{label}}">{{label}}</a></li>
+        {{/foreach}}
+    </ul>
+</nav>
