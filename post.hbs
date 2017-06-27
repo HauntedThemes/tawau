@@ -4,19 +4,21 @@
 {{!-- Everything inside the #post tags pulls data from the post --}}
 {{#post}}
 
-    <main id="content" class="content content-inner" role="main" data-id="{{id}}">
+    <main id="content" class="container" role="main">
         <article class="{{post_class}}">
             <div class="post-meta">
-                {{author}}
                 <time class="post-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time>
+                <div class="tags">{{tags}}</div>
             </div>
             <h1 class="post-title">{{title}}</h1>
             {{#if image}}
                 <div class="content-holder">
-                    <img src="{{image}}" alt="{{title}}" class="rellax" data-rellax-speed="2" data-rellax-percentage="0.5">
+                    <a href="{{image}}" class="zoom">
+                        <img src="{{image}}" alt="{{title}}" class="rellax" data-rellax-speed="2" data-rellax-percentage="0.5">
+                    </a>
                 </div>
             {{/if}}
-            <section class="post-content">
+            <section class="post-content content-holder">
                 {{content}}
 
                 <div class="social-share">
@@ -26,17 +28,6 @@
                 </div>
 
             </section>
-
-            {{#if tags}}
-                <ul class="tags">
-                {{#foreach tags}}
-                    <li>
-                        <a href="{{url}}" title="{{name}}" class="tag tag-{{id}} {{slug}}">{{name}}</a>
-                    </li>  
-                {{/foreach}}
-                </ul>
-            {{/if}}
-
         </article>
     </main>
 

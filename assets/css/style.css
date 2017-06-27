@@ -171,12 +171,48 @@ p{
     line-height: 30px;
 }
 
+ul li,
+ol li{
+    color: #555555;
+    font-size: 20px;
+    line-height: 30px;
+}
+
 hr{
     background: #E9E9E9;
     border: none;
     width: 100%;
     height: 1px;
     display: block;
+}
+
+code{
+    font-family: monospace;
+    background-color: #f7f7f7;
+    display: inline-block;
+    border: 1px solid #f7f7f7;
+    padding: 0px 7px;
+    margin: 0 5px;
+    font-size: 14px;
+    line-height: 25px;
+    white-space: pre;
+    color: #555555;
+}
+
+pre{
+    font-family: monospace;
+    background-color: #f7f7f7;
+    display: block;
+    border: 1px solid #f7f7f7;
+    padding: 22px 25px;
+    font-size: 14px;
+    line-height: 25px;
+    white-space: pre;
+    color: #555555;
+}
+
+pre code{
+    border: none;
 }
 
 .wf-loading h1,
@@ -237,7 +273,7 @@ textarea{
     background: transparent;
     padding: 6px 14px;
     display: block;
-    max-width: 500px;
+    max-width: 470px;
     width: 100%;
     margin: 10px auto;
     -webkit-transition: all 0.3s ease-in-out;
@@ -291,7 +327,7 @@ time{
     margin-bottom: 70px;
 }
 
-#content .post h2{
+#content .post .post-title{
     font-size: 70px;
     line-height: 85px;
     margin-top: 20px;
@@ -423,7 +459,7 @@ header nav ul li a{
 
 footer{
     background-color: #FFF100;
-    padding: 60px 0;
+    padding: 80px 0;
     text-align: center;
 }
 
@@ -457,4 +493,96 @@ footer .tags ul li{
 
 footer .tags ul li a:before{
     content: '#';
+}
+
+footer form{
+    position: relative;
+    display: block;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto 80px auto;
+}
+
+footer form button[type="submit"]{
+    font-size: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    line-height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 13px;
+    z-index: 22;
+    height: 20px;
+    display: block;
+    right: 10px;
+}
+
+footer form button[type="submit"]:hover{
+    border: none;
+    box-shadow: none;
+    transform: translate3d(-3px, 0,0);
+}
+
+footer form button[type="submit"]:before{
+    font-family: "icons";
+    content: "\e900";
+    font-size: 12px;
+    color: #000000;
+}
+
+.social{
+    text-align: center;
+    font-size: 28px;
+}
+
+.social a{
+    margin: 0 10px 70px 10px;
+    display: inline-block;
+}
+
+.social a:hover:before{
+    color: #555555;
+}
+
+.social a:before{
+    font-family: 'icons';
+    color: #000000;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.social .facebook:before {
+    content: "\e901";
+}
+
+.social .twitter:before {
+    content: "\e902";
+}
+
+.post .post-title{
+    font-size: 70px;
+    line-height: 85px;
+    margin-top: 20px;
+    margin-bottom: 35px;
+    color: #000;
+}
+
+.post-content a{
+    border-bottom: 1px solid #000;
+}
+
+.post-content a.zoom{
+    display: flex;
+    border: none;
+    cursor: pointer;
+    cursor: -webkit-zoom-in;
+}
+
+.post-content input:not([type=submit]):not([type=file]):not([type=radio]):not([type=checkbox]):not([type=reset]):not([type=button]), 
+.post-content textarea{
+    margin-left: 0;
 }
