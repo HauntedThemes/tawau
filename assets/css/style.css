@@ -579,7 +579,7 @@ footer form button[type="submit"]:before{
     border-bottom: 1px solid #000;
 }
 
-.post-content a.zoom{
+.content-inner a.zoom{
     display: flex;
     border: none;
     cursor: pointer;

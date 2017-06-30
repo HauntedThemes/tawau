@@ -45,28 +45,25 @@ jQuery(document).ready(function($) {
 
     // Position share buttons
     function shareButtons(){
+        
         var contentHolderDistanceTop = $('.content-inner .content-holder').offset().top;
         var contentHeight = $('#content').outerHeight(true);
         var contentDistanceTop = $('#content').offset().top - parseInt($('#content').css('marginTop'), 10);
+        var socialShareHeight = $('.content-inner .content-holder .social-share').height();
+        var contentHeightAndDistance = contentHeight + contentDistanceTop;
 
-        console.log(contentDistanceTop);
-
-        if ($(window).scrollTop() > (contentHolderDistanceTop - 150) && $(window).scrollTop() < (contentHeight + contentDistanceTop - 150 - $('.content-inner .content-holder .social-share').height())) {
+        if ($(window).scrollTop() > (contentHolderDistanceTop - 150) && $(window).scrollTop() < (contentHeightAndDistance - 150 - socialShareHeight)) {
             $('.social-share').addClass('active');
             $('.social-share').attr('style', '');
-            console.log($(window).scrollTop());
-            console.log(contentHeight + contentDistanceTop);
-            console.log('-----');
+        }else if($(window).scrollTop() > (contentHeightAndDistance - 150 - socialShareHeight)){
+            $('.social-share').css({
+                position: 'absolute',
+                top: (contentHeightAndDistance - contentHolderDistanceTop - socialShareHeight) + 'px'
+            });
+        }else if($(window).scrollTop() < (contentHolderDistanceTop - 150)){
+            $('.social-share').removeClass('active');
+            $('.social-share').attr('style', '');
         }
-        // else if($(window).scrollTop() > (contentHeight + contentDistanceTop - 190)){
-        //     $('.social-share').css({
-        //         position: 'absolute',
-        //         top: contentHeight - 300 + 'px'
-        //     });
-        // }else if($(window).scrollTop() < (contentHolderDistanceTop - 150)){
-        //     $('.social-share').removeClass('active');
-        //     $('.social-share').attr('style', '');
-        // }
     }
 
 });
