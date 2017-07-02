@@ -322,6 +322,11 @@ time{
     width: 100%;
 }
 
+.hidden{
+    visibility: hidden;
+    opacity: 0;
+}
+
 #content{
     margin-top: 60px;
 }
@@ -329,6 +334,10 @@ time{
 #content .post{
     text-align: center;
     margin-bottom: 70px;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }
 
 #content .post .post-title{
@@ -351,8 +360,9 @@ time{
 
 #content .post .content-holder .img-holder{
     display: flex;
-    flex-direction: column;
     overflow: hidden;
+    align-items: center;
+    justify-content: center;
 }
 
 #content .post .content-holder img{
@@ -459,6 +469,23 @@ header nav ul li a{
 .pagination a.older-posts{
     left: auto;
     right: 0;
+}
+
+#load-posts{
+    display: none;
+    margin: 100px auto;
+}
+
+#load-posts:after{
+    display: none;
+}
+
+#load-posts.visible{
+    display: block;
+}
+
+#load-posts.visible + .pagination{
+    display: none;
 }
 
 footer{

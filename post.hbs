@@ -11,22 +11,20 @@
                 <div class="tags">{{tags}}</div>
             </div>
             <h1 class="post-title">{{title}}</h1>
-                <div class="content-holder">
-            {{#if image}}
+            <div class="content-holder">
+                {{#if image}}
                     <a href="{{image}}" class="zoom">
                         <img src="{{image}}" alt="{{title}}" class="rellax" data-rellax-speed="2" data-rellax-percentage="0.5">
                     </a>
-            {{/if}}
+                {{/if}}
                 <div class="social-share">
                     <span>Share</span>
                     <a class="twitter" href="https://twitter.com/intent/tweet/?text={{title}}&url={{@blog.url}}{{url}}" target="_blank" title="Share on Twitter"></a>
                     <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{@blog.url}}{{url}}" target="_blank" title="Share on Facebook"></a>
                 </div>
-                </div>
+            </div>
             <section class="post-content content-holder">
                 {{content}}
-
-
             </section>
         </article>
     </main>
