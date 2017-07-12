@@ -1,4 +1,11 @@
 {{!-- This is the search container - visible after a user clicks the search button --}}
+
+<div id="loader" class="pageload-overlay" data-opening="M 0,0 80,0 80,10 0,20 0,0;M 0,0 80,0 80,35 0,20 0,0;M 0,0 80,0 80,35 0,50 0,0;M 0,0 80,0 80,60 0,60 0,0" data-closing="M 0,0 80,0 80,40 0,60 0,0;M 0,0 80,0 80,40 0,20 0,0;m 0,0 80,0 0,0 -80,0">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60" preserveAspectRatio="none">
+        <path d="m 0,0 80,0 0,0 -80,0"/>
+    </svg>
+</div>
+
 <div class="search-container">
     <form>
         <div class="container">
@@ -18,4 +25,7 @@
             <li class="nav-{{slug}}{{#if current}} nav-current{{/if}}"><a href="{{url absolute="true"}}" title="{{label}}">{{label}}</a></li>
         {{/foreach}}
     </ul>
+    <a href="#" class="search-trigger"></a>
 </nav>
+
+

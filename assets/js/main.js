@@ -231,4 +231,54 @@ jQuery(document).ready(function($) {
         });
     }
 
+
+    var loader = new SVGLoader( $('#loader')[0], { speedIn : 200, easingIn : mina.linear } );
+
+    // $('.search-trigger').on('click', function(event) {
+    //     event.preventDefault();
+    //     if ($(this).hasClass('active')) {
+    //         $(this).removeClass('active');
+    //         loader.hide();
+    //     }else{
+    //         $(this).addClass('active');
+    //         loader.show();
+    //     };
+    // });
+
+    var disabled = false;
+    $('.search-trigger').on('click', function(event) {
+        event.preventDefault();
+        if (disabled == false) {
+            disabled = true;
+            if (!$('body').hasClass('new-active')) {
+                $('header').addClass('active');
+                $('header .search-container').css({
+                    opacity: '1',
+                    zIndex: '9995'
+                });
+                loader.show();
+                setTimeout(function() {
+                    $('body, html').addClass('new-active');
+                    $('header .search-container').css('overflow-y', 'scroll');
+                    disabled = false;
+                    loader.show();
+                }, 300);
+            }else{
+                $('header').removeClass('active');
+                $('header .search-container').css({
+                    opacity: '0'
+                });
+                $('body, html').removeClass('new-active');
+                $('header .search-container').css('overflow-y', 'hidden');
+                loader.hide();
+                setTimeout(function() {
+                    $('header .search-container').css({
+                        zIndex: '-1',
+                    });
+                    disabled = false;
+                }, 300);
+            };
+        };
+    });
+
 });

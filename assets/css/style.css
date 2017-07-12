@@ -397,12 +397,19 @@ time{
 header{
     background-color: #FFF100;
     padding: 40px 0;
+    position: relative;
+    z-index: 999;
 }
 
 header .container{
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+header .blog-logo{
+    position: relative;
+    z-index: 2;
 }
 
 header .blog-logo b{
@@ -416,12 +423,12 @@ header .blog-logo img{
     max-height: 115px;
 }
 
-header .search-container{
-    display: none;
-}
-
 header nav{
-    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 9996;
 }
 
 header nav ul{
@@ -441,6 +448,153 @@ header nav ul li a{
     font-size: 18px;
     font-weight: bold;
     line-height: 24px;
+}
+
+header .search-trigger{
+    font-family: 'icons';
+    margin-left: auto;
+    height: 23px;
+    width: 23px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    font-size: 22px;
+    margin-left: 10px;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+}
+
+header .search-trigger:before{
+    content: "\e903";
+}
+
+.new-active{
+    overflow-y: hidden;
+}
+
+.pageload-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+}
+
+header .pageload-overlay.show + .search-container{
+    visibility: visible;
+}
+
+header .search-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: -1;
+    overflow-x: hidden;
+    visibility: hidden;
+    -webkit-transition: opacity 0.3s, visibility 0s 0.3s;
+    -moz-transition: opacity 0.3s, visibility 0s 0.3s;
+    -o-transition: opacity 0.3s, visibility 0s 0.3s;
+    transition: opacity 0.3s, visibility 0s 0.3s;
+}
+
+header .search-container form{
+    height: 100px;
+    background: #ff4400;
+    margin-top: 100px;
+}
+
+header .search-container form .container{
+    position: relative;
+}
+
+header .search-container form .container .search-trigger{
+    position: absolute;
+    top: 50%;
+    right: 150px;
+    margin-top: -12px;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    -o-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+}
+
+header .search-container form .container .search-trigger:hover{
+    opacity: .6;
+}
+
+header .search-container form .container .search-trigger:before,
+header .search-container form .container .search-trigger:after{
+    content: '';
+    width: 28px;
+    background: #fff;
+    height: 4px;
+    position: absolute;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    top: 9px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+header .search-container form .container .search-trigger:after{
+    top: auto;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    bottom: 11px;
+}
+
+header .search-container #search-field{
+    height: 100px;
+    width: 100%;
+    margin: 0;
+    border: none;
+    color: #fff;
+    padding: 0 150px;
+    font-size: 43px;
+    line-height: 53px;
+    width: calc(100% - 300px);
+}
+
+header .search-container #search-field::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: rgba(255, 255, 255, 0.65);
+}
+header .search-container #search-field::-moz-placeholder { /* Firefox 19+ */
+    color: rgba(255, 255, 255, 0.65);
+}
+header .search-container #search-field:-ms-input-placeholder { /* IE 10+ */
+    color: rgba(255, 255, 255, 0.65);
+}
+header .search-container #search-field:-moz-placeholder { /* Firefox 18- */
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.pageload-overlay.show {
+    visibility: visible;
+}
+
+.pageload-overlay svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.pageload-overlay svg path {
+    fill: #FFF100;
 }
 
 .pagination{
@@ -486,6 +640,57 @@ header nav ul li a{
 
 #load-posts.visible + .pagination{
     display: none;
+}
+
+.post-footer{
+    text-align: center;
+}
+
+.post-footer .tags{
+    color: #B7B7B7;
+    margin-top: 10px;
+}
+
+.post-footer .tags a{
+    color: #B7B7B7;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+.post-footer .tags a:before {
+    content: '#';
+}
+
+.author{
+    margin-top: 50px;
+    border-top: 1px solid #E9E9E9;
+}
+
+.author h4{
+    font-family: "europa", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 25px;
+    margin: 18px 0;
+}
+
+.author p{
+    font-size: 16px;
+    line-height: 20px;
+    color: #000;
+    max-width: 370px;
+    margin: 0 auto;
+}
+
+.author .author-image{
+    max-width: 80px;
+    margin: -20px auto 0 auto;
+}
+
+.author .author-image img{
+    max-width: 100%;
+    border-radius: 50%;
 }
 
 footer{
@@ -779,6 +984,27 @@ footer form button[type="submit"]:before{
     content: '\e902';
     font-size: 10px;
     font-style: normal;
+}
+
+.tag-title{
+    margin: 100px 0;
+}
+
+.tag-title h1{
+    height: 100px;
+    width: 944.78px;
+    color: #000000;
+    font-size: 40px;
+    line-height: 100px;
+    font-family: "europa", sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.tag-title h1:before{
+    content: '#';
 }
 
 @media (max-width: 1199px) {

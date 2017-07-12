@@ -24,40 +24,47 @@
                 </div>
             </div>
             <section class="post-content content-holder">
+
                 {{content}}
+
             </section>
         </article>
     </main>
 
-    {{!-- Everything inside the #author tags pulls data from the author --}}
-    {{#author}}
+    <div class="post-footer">
+        <div class="tags">{{tags}}</div>
 
-        <section class="author">
-            {{#if image}}
-            <figure class="author-image">
-                <a class="img" href="{{url}}" title="{{name}}"><img src="{{image}}" alt="{{name}}"></a>
-            </figure>
-            {{/if}}
+        {{!-- Everything inside the #author tags pulls data from the author --}}
+        {{#author}}
 
-            <h4><a href="{{url}}">{{name}}</a></h4>
+            <section class="author container">
+                {{#if image}}
+                <figure class="author-image">
+                    <a class="img" href="{{url}}" title="{{name}}"><img src="{{image}}" alt="{{name}}"></a>
+                </figure>
+                {{/if}}
 
-            {{#if bio}}
-                <p>{{bio}}</p>
-            {{else}}
-                <p>Read <a href="{{url}}">more posts</a> by this author.</p>
-            {{/if}}
-            <div class="author-meta">
-                {{#if location}}<span class="author-location">{{location}}</span>{{/if}}
-                {{#if website}}<span class="author-link"><a href="{{website}}">{{website}}</a></span>{{/if}}
-            </div>
-            <div class="social">
-                {{#if twitter}}<a href="{{twitter_url}}" class="twitter" title="{{twitter}}"></a>{{/if}}
-                {{#if facebook}}<a href="{{facebook_url}}" class="facebook" title="{{facebook}}"></a>{{/if}}
-            </div>
-        </section>
+                <h4><a href="{{url}}">{{name}}</a></h4>
 
-    {{/author}}
+                {{#if bio}}
+                    <p>{{bio}}</p>
+                {{else}}
+                    <p>Read <a href="{{url}}">more posts</a> by this author.</p>
+                {{/if}}
+                <div class="author-meta">
+                    {{#if location}}<span class="author-location">{{location}}</span>{{/if}}
+                    {{#if website}}<span class="author-link"><a href="{{website}}">{{website}}</a></span>{{/if}}
+                </div>
+                <div class="social">
+                    {{#if twitter}}<a href="{{twitter_url}}" class="twitter" title="{{twitter}}"></a>{{/if}}
+                    {{#if facebook}}<a href="{{facebook_url}}" class="facebook" title="{{facebook}}"></a>{{/if}}
+                </div>
+            </section>
 
-    <div class="comments"></div>
+        {{/author}}
+
+        <div class="comments"></div>
+    </div>
+
 
 {{/post}}
