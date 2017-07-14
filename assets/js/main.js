@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
         'load-more': true,
         'posts-each-load': 2, // must be the same as Posts per page from General page in Ghost Dashboard,
         'infinite-scroll': false,
+        'disqus-shortname': 'lizun-1'
     };
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -44,6 +45,24 @@ jQuery(document).ready(function($) {
             shareButtons();
         });
         shareButtons();
+    };
+
+    // Initialize Disqus comments
+    if ($('#content').attr('data-id') && config['disqus-shortname'] != '') {
+
+        $('.comments').append('<div id="disqus_thread"></div>')
+
+        var disqus_config = function () {
+            this.page.url = window.location.href;
+            this.page.identifier = $('#content').attr('data-id');
+        };
+
+        (function() {
+        var d = document, s = d.createElement('script');
+        s.src = '//'+ config['disqus-shortname'] +'.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
     };
 
     // Load more posts on click
@@ -231,19 +250,43 @@ jQuery(document).ready(function($) {
         });
     }
 
+    function morphStart(){
+        var morphing = anime({
+            targets: '#morphing .path',
+            d: [
+              { value: 'M 10,0 L 10,0 C 10,0 10,0 5,0 C 0,0 0,0 0,0 L 0,0 Z' },
+              { value: 'M 10,0 L 10,0 C 10,0 10,5 5,5 C 0,5 0,0 0,0 L 0,0 Z' },
+              { value: 'M10 0 L10 10 C10 10 10 10 5 10 C0 10 0 10 0 10 L0 0 '}
+            ],
+            easing: 'easeInOutQuint',
+            duration: 1000,
+            loop: false,
+        });  
 
-    var loader = new SVGLoader( $('#loader')[0], { speedIn : 200, easingIn : mina.linear } );
+        morphing.begin = function(){
+            $('#morphing').removeClass('complete');
+        }
 
-    // $('.search-trigger').on('click', function(event) {
-    //     event.preventDefault();
-    //     if ($(this).hasClass('active')) {
-    //         $(this).removeClass('active');
-    //         loader.hide();
-    //     }else{
-    //         $(this).addClass('active');
-    //         loader.show();
-    //     };
-    // });
+    }
+
+    function morphReverse(){
+        var morphing = anime({
+            targets: '#morphing .path',
+            d: [
+              { value: 'M10 0 L10 10 C10 10 10 10 5 10 C0 10 0 10 0 10 L0 0' },
+              { value: 'M 10,0 L 10,0 C 10,0 10,5 5,5 C 0,5 0,0 0,0 L 0,0 Z' },
+              { value: 'M 10,0 L 10,0 C 10,0 10,0 5,0 C 0,0 0,0 0,0 L 0,0 Z '}
+            ],
+            easing: 'easeInOutQuint',
+            duration: 1000,
+            loop: false
+        });  
+
+        morphing.complete = function(){
+            $('#morphing').addClass('complete');
+        }
+
+    }
 
     var disabled = false;
     $('.search-trigger').on('click', function(event) {
@@ -256,12 +299,12 @@ jQuery(document).ready(function($) {
                     opacity: '1',
                     zIndex: '9995'
                 });
-                loader.show();
+                morphStart();
                 setTimeout(function() {
                     $('body, html').addClass('new-active');
                     $('header .search-container').css('overflow-y', 'scroll');
                     disabled = false;
-                    loader.show();
+                    // morphStart();
                 }, 300);
             }else{
                 $('header').removeClass('active');
@@ -270,7 +313,7 @@ jQuery(document).ready(function($) {
                 });
                 $('body, html').removeClass('new-active');
                 $('header .search-container').css('overflow-y', 'hidden');
-                loader.hide();
+                morphReverse();
                 setTimeout(function() {
                     $('header .search-container').css({
                         zIndex: '-1',
@@ -279,6 +322,21 @@ jQuery(document).ready(function($) {
                 }, 300);
             };
         };
+    });
+
+    // Initialize ghostHunter - A Ghost blog search engine
+    $("#search-field").ghostHunter({
+        results             : "#results",
+        onKeyUp             : true,
+        zeroResultsInfo     : true,
+        displaySearchInfo   : true,
+        info_template       : "<p>Number of posts found: {{amount}}</p>",
+        result_template     : "<li><a href='{{link}}' title='{{title}}'>{{title}}</a></li>",
+        onComplete      : function( results ){
+            if (results.length == 0) {
+                console.log(results);
+            };
+        }
     });
 
 });

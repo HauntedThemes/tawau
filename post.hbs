@@ -4,7 +4,7 @@
 {{!-- Everything inside the #post tags pulls data from the post --}}
 {{#post}}
 
-    <main id="content" class="container content-inner" role="main">
+    <main id="content" class="container content-inner" role="main" data-id={{id}}>
         <article class="{{post_class}}">
             <div class="post-meta">
                 <time class="post-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time>
