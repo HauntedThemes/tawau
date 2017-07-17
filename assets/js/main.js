@@ -37,6 +37,10 @@ jQuery(document).ready(function($) {
             ],
             tooltipTimeout: 250
         });
+        $('mark').on('mouseover', function(event) {
+            event.preventDefault();
+            
+        });
     };
 
     // Position social share buttons inside a single post
@@ -264,7 +268,14 @@ jQuery(document).ready(function($) {
         });  
 
         morphing.begin = function(){
-            $('#morphing').removeClass('complete');
+            $('#morphing').addClass('begin');
+        }
+
+        morphing.complete = function(){
+            $('#morphing').addClass('end');
+            setTimeout(function() {
+                $('#search-field').focus();
+            }, 100);
         }
 
     }
@@ -282,46 +293,32 @@ jQuery(document).ready(function($) {
             loop: false
         });  
 
+        morphing.begin = function(){
+            $('#morphing').removeClass('end');
+        }
+
         morphing.complete = function(){
-            $('#morphing').addClass('complete');
+            $('#morphing').removeClass('begin');
         }
 
     }
 
-    var disabled = false;
     $('.search-trigger').on('click', function(event) {
         event.preventDefault();
-        if (disabled == false) {
-            disabled = true;
-            if (!$('body').hasClass('new-active')) {
-                $('header').addClass('active');
-                $('header .search-container').css({
-                    opacity: '1',
-                    zIndex: '9995'
-                });
-                morphStart();
-                setTimeout(function() {
-                    $('body, html').addClass('new-active');
-                    $('header .search-container').css('overflow-y', 'scroll');
-                    disabled = false;
-                    // morphStart();
-                }, 300);
-            }else{
-                $('header').removeClass('active');
-                $('header .search-container').css({
-                    opacity: '0'
-                });
-                $('body, html').removeClass('new-active');
-                $('header .search-container').css('overflow-y', 'hidden');
-                morphReverse();
-                setTimeout(function() {
-                    $('header .search-container').css({
-                        zIndex: '-1',
-                    });
-                    disabled = false;
-                }, 300);
-            };
+        if ($('body').hasClass('scroll') && !$('body').hasClass('new-active')) {
+            return;
         };
+        if (!$('#morphing').hasClass('end')) {
+            if (!$('#morphing').hasClass('begin')) {
+                $('header').addClass('active');
+                morphStart();
+                $('body, html').addClass('new-active');
+            };
+        }else{
+            $('header').removeClass('active');
+            morphReverse();
+            $('body, html').removeClass('new-active');
+        }
     });
 
     // Initialize ghostHunter - A Ghost blog search engine
@@ -330,13 +327,28 @@ jQuery(document).ready(function($) {
         onKeyUp             : true,
         zeroResultsInfo     : true,
         displaySearchInfo   : true,
-        info_template       : "<p>Number of posts found: {{amount}}</p>",
+        info_template       : "<p>No posts found</p>",
         result_template     : "<li><a href='{{link}}' title='{{title}}'>{{title}}</a></li>",
         onComplete      : function( results ){
-            if (results.length == 0) {
-                console.log(results);
+            if (results.length == 0 && $('#search-field').val() != '') {
+                $('#results p').addClass('empty');
             };
         }
+    });
+
+    var scroll = 0;
+    var lastScrollTop = 0;
+    $(document).scroll(function(event) {
+        if (scroll == 1) {
+            var st = $(this).scrollTop();
+            if (st > lastScrollTop){
+                $('body').addClass('scroll');
+            } else {
+                $('body').removeClass('scroll');
+            }
+            lastScrollTop = st;
+        }
+        scroll = 1;
     });
 
 });
