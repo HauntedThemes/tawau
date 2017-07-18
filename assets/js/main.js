@@ -16,9 +16,10 @@ jQuery(document).ready(function($) {
     var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     
     $('.post-content img').each(function(index, el) {
-        if (!$(this).parent().is("a")) {
+        if (!$(this).parent().is("a") && !$(this).hasClass('error')) {
             $( "<a href='" + $(this).attr('src') + "' class='zoom'></a>" ).insertAfter( $(this) );
             $(this).appendTo($(this).next("a"));
+            console.log('t2');
         };
     });
 
@@ -39,7 +40,7 @@ jQuery(document).ready(function($) {
         });
         $('mark').on('mouseover', function(event) {
             event.preventDefault();
-            
+
         });
     };
 
@@ -254,7 +255,7 @@ jQuery(document).ready(function($) {
         });
     }
 
-    function morphStart(){
+    function morphStart(c){
         var morphing = anime({
             targets: '#morphing .path',
             d: [
@@ -268,11 +269,14 @@ jQuery(document).ready(function($) {
         });  
 
         morphing.begin = function(){
-            $('#morphing').addClass('begin');
+            // $('body, html').addClass('overflow-y');
+            // $('#morphing').addClass('begin ' + 'begin-' + c);
+            $('body, html').addClass('overflow-y begin ' + 'begin-' + c);
         }
 
         morphing.complete = function(){
-            $('#morphing').addClass('end');
+            // $('#morphing').addClass('end ' + 'end-' + c);
+            $('body, html').addClass('overflow-y end ' + 'end-' + c);
             setTimeout(function() {
                 $('#search-field').focus();
             }, 100);
@@ -280,7 +284,7 @@ jQuery(document).ready(function($) {
 
     }
 
-    function morphReverse(){
+    function morphReverse(c){
         var morphing = anime({
             targets: '#morphing .path',
             d: [
@@ -294,30 +298,35 @@ jQuery(document).ready(function($) {
         });  
 
         morphing.begin = function(){
-            $('#morphing').removeClass('end');
+            $('body, html').removeClass('overflow-y end ' + 'end-' + c);
+            // $('#morphing').removeClass('end ' + 'end-' + c);
         }
 
         morphing.complete = function(){
-            $('#morphing').removeClass('begin');
+            $('body, html').removeClass('overflow-y begin ' + 'begin-' + c);
+            // $('#morphing').removeClass('begin ' + 'begin-' + c);
         }
 
     }
 
-    $('.search-trigger').on('click', function(event) {
+    $('.search-trigger, .nav-trigger').on('click', function(event) {
         event.preventDefault();
-        if ($('body').hasClass('scroll') && !$('body').hasClass('new-active')) {
+
+        var className = event.currentTarget.className;
+
+        if ($('body').hasClass('scroll') && !$('body').hasClass('overflow-y')) {
             return;
         };
-        if (!$('#morphing').hasClass('end')) {
-            if (!$('#morphing').hasClass('begin')) {
-                $('header').addClass('active');
-                morphStart();
-                $('body, html').addClass('new-active');
+        if (!$('body').hasClass('end')) {
+            if (!$('body').hasClass('begin')) {
+                morphStart(className);
+                // $('body, html').addClass('overflow-y');
+                // $(this).addClass('active');
             };
         }else{
-            $('header').removeClass('active');
-            morphReverse();
-            $('body, html').removeClass('new-active');
+            morphReverse(className);
+            // $('body, html').removeClass('overflow-y');
+            // $(this).removeClass('active');
         }
     });
 
@@ -350,5 +359,23 @@ jQuery(document).ready(function($) {
         }
         scroll = 1;
     });
+
+    // Validate Subscribe input
+    $('.gh-signin').on('submit', function(event) {
+        var email = $('.gh-input').val();
+        if (!validateEmail(email)) {
+            $('.gh-input').addClass('error');
+            setTimeout(function() {
+                $('.gh-input').removeClass('error');
+            }, 500);
+            event.preventDefault();
+        };
+    });
+
+    // Validate email input
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    } 
 
 });
