@@ -269,13 +269,10 @@ jQuery(document).ready(function($) {
         });  
 
         morphing.begin = function(){
-            // $('body, html').addClass('overflow-y');
-            // $('#morphing').addClass('begin ' + 'begin-' + c);
             $('body, html').addClass('overflow-y begin ' + 'begin-' + c);
         }
 
         morphing.complete = function(){
-            // $('#morphing').addClass('end ' + 'end-' + c);
             $('body, html').addClass('overflow-y end ' + 'end-' + c);
             setTimeout(function() {
                 $('#search-field').focus();
@@ -299,12 +296,10 @@ jQuery(document).ready(function($) {
 
         morphing.begin = function(){
             $('body, html').removeClass('overflow-y end ' + 'end-' + c);
-            // $('#morphing').removeClass('end ' + 'end-' + c);
         }
 
         morphing.complete = function(){
             $('body, html').removeClass('overflow-y begin ' + 'begin-' + c);
-            // $('#morphing').removeClass('begin ' + 'begin-' + c);
         }
 
     }
@@ -320,13 +315,9 @@ jQuery(document).ready(function($) {
         if (!$('body').hasClass('end')) {
             if (!$('body').hasClass('begin')) {
                 morphStart(className);
-                // $('body, html').addClass('overflow-y');
-                // $(this).addClass('active');
             };
         }else{
             morphReverse(className);
-            // $('body, html').removeClass('overflow-y');
-            // $(this).removeClass('active');
         }
     });
 
@@ -377,5 +368,185 @@ jQuery(document).ready(function($) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     } 
+
+    $('mark').each(function(index, el) {
+        $(this).on('mouseover', function(event) {
+            event.preventDefault();
+            var rect = $(this)[0].getBoundingClientRect();
+        });
+    });
+
+    $('.tooltip').prependTo('.share-selected-text-inner');
+    $('.share-selected-text-btn').prependTo('.tooltip__content');
+
+    {
+        const config = {
+            smaug: {
+                in: {
+                    base: {
+                        duration: 200,
+                        easing: 'easeOutQuad',
+                        rotate: [35,0],
+                        opacity: {
+                            value: 1,
+                            easing: 'linear',
+                            duration: 100
+                        }
+                    },
+                    content: {
+                        duration: 1000,
+                        delay: 50,
+                        easing: 'easeOutElastic',
+                        translateX: [50,0],
+                        rotate: [10, 0],
+                        opacity: {
+                            value: 1,
+                            easing: 'linear',
+                            duration: 100
+                        }
+                    },
+                    trigger: {
+                        translateX: [
+                            {value: '-30%', duration: 130, easing: 'easeInQuad'},
+                            {value: ['30%','0%'], duration: 900, easing: 'easeOutElastic'}
+                        ],
+                        opacity: [
+                            {value: 0, duration: 130, easing: 'easeInQuad'},
+                            {value: 1, duration: 130, easing: 'easeOutQuad'}
+                        ],
+                        color: [
+                            {value: '#6fbb95', duration: 1, delay: 130, easing: 'easeOutQuad'}
+                        ]
+                    }
+                },
+                out: {
+                    base: {
+                        duration: 200,
+                        delay: 100,
+                        easing: 'easeInQuad',
+                        rotate: -35,
+                        opacity: 0
+                    },
+                    content: {
+                        duration: 200,
+                        easing: 'easeInQuad',
+                        translateX: -30,
+                        rotate: -10,
+                        opacity: 0
+                    },
+                    trigger: {
+                        translateX: [
+                            {value: '-30%', duration: 200, easing: 'easeInQuad'},
+                            {value: ['30%','0%'], duration: 200, easing: 'easeOutQuad'}
+                        ],
+                        opacity: [
+                            {value: 0, duration: 200, easing: 'easeInQuad'},
+                            {value: 1, duration: 200, easing: 'easeOutQuad'}
+                        ],
+                        color: [
+                            {value: '#666', duration: 1, delay: 200, easing: 'easeOutQuad'}
+                        ]
+                    }
+                }
+            }   
+        };
+
+        const tooltips = Array.from(document.querySelectorAll('.tooltip'));
+        
+        class Tooltip {
+            constructor(el) {
+                this.DOM = {};
+                this.DOM.el = el;
+                this.type = this.DOM.el.getAttribute('data-type');
+                this.DOM.trigger = this.DOM.el.querySelector('.tooltip__trigger');
+                this.DOM.triggerSpan = this.DOM.el.querySelector('.tooltip__trigger-text');
+                this.DOM.base = this.DOM.el.querySelector('.tooltip__base');
+                this.DOM.shape = this.DOM.base.querySelector('.tooltip__shape');
+                if( this.DOM.shape ) {
+                    this.DOM.path = this.DOM.shape.childElementCount > 1 ? Array.from(this.DOM.shape.querySelectorAll('path')) : this.DOM.shape.querySelector('path');
+                }
+                this.DOM.deco = this.DOM.base.querySelector('.tooltip__deco');
+                this.DOM.content = this.DOM.base.querySelector('.tooltip__content');
+
+                this.DOM.letters = this.DOM.content.querySelector('.tooltip__letters');
+                if( this.DOM.letters ) {
+                    // Create spans for each letter.
+                    charming(this.DOM.letters);
+                    // Redefine content.
+                    this.DOM.content = this.DOM.letters.querySelectorAll('span');
+                }
+                this.initEvents();
+            }
+            initEvents() {
+                this.mouseenterFn = () => {
+                    this.mouseTimeout = setTimeout(() => {
+                        this.isShown = true;
+                        this.show();
+                    }, 75);
+                }
+                this.mouseleaveFn = () => {
+                    clearTimeout(this.mouseTimeout);
+                    if( this.isShown ) {
+                        this.isShown = false;
+                        this.hide();
+                    }
+                }
+                var $this = this;
+                $('.content-inner .post-content').bind('mouseup', function(e){
+                    if (window.getSelection || document.selection) {
+                        var sel = window.getSelection();
+                        $this.mouseTimeout = setTimeout(() => {
+                            $this.isShown = true;
+                            $this.show();
+                        }, 500);
+                    }
+                });
+                $('body').bind('mousedown', function(e){
+                    if (window.getSelection || document.selection) {
+                        clearTimeout($this.mouseTimeout);
+                        if( $this.isShown ) {
+                            $this.isShown = false;
+                            $this.hide();
+                        }
+                    }
+                });
+                // this.DOM.trigger.addEventListener('mouseenter', this.mouseenterFn);
+                // this.DOM.trigger.addEventListener('mouseleave', this.mouseleaveFn);
+                // this.DOM.trigger.addEventListener('touchstart', this.mouseenterFn);
+                // this.DOM.trigger.addEventListener('touchend', this.mouseleaveFn);
+            }
+            show() {
+                this.animate('in');
+            }
+            hide() {
+                this.animate('out');
+            }
+            animate(dir) {
+                if ( config[this.type][dir].base ) {
+                    anime.remove(this.DOM.base);
+                    let baseAnimOpts = {targets: this.DOM.base};
+                    anime(Object.assign(baseAnimOpts, config[this.type][dir].base));
+                }
+                if ( config[this.type][dir].content ) {
+                    anime.remove(this.DOM.content);
+                    let contentAnimOpts = {targets: this.DOM.content};
+                    anime(Object.assign(contentAnimOpts, config[this.type][dir].content));
+                }
+                if ( config[this.type][dir].trigger ) {
+                    anime.remove(this.DOM.triggerSpan);
+                    let triggerAnimOpts = {targets: this.DOM.triggerSpan};
+                    anime(Object.assign(triggerAnimOpts, config[this.type][dir].trigger));
+                }
+            }
+            destroy() {
+                // this.DOM.trigger.removeEventListener('mouseenter', this.mouseenterFn);
+                // this.DOM.trigger.removeEventListener('mouseleave', this.mouseleaveFn);
+                // this.DOM.trigger.removeEventListener('touchstart', this.mouseenterFn);
+                // this.DOM.trigger.removeEventListener('touchend', this.mouseleaveFn);
+            }
+        }
+
+        const init = (() => tooltips.forEach(t => new Tooltip(t)))();
+    };
 
 });
