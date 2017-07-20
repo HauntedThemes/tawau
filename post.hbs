@@ -14,7 +14,7 @@
             <div class="content-holder">
                 {{#if image}}
                     <a href="{{image}}" class="zoom">
-                        <img src="{{image}}" alt="{{title}}" class="rellax" data-rellax-speed="2" data-rellax-percentage="0.5">
+                        <img src="{{image}}" alt="{{title}}">
                     </a>
                 {{/if}}
                 <div class="social-share">
@@ -33,17 +33,6 @@
 
     <div class="post-footer">
         <div class="tags">{{tags}}</div>
-
-        <div class="tooltip tooltip--smaug" data-type="smaug">
-            <div class="tooltip__base">
-               <svg width="185px" height="72px" viewBox="0 0 185 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <path d="M107.669048,56 L185,56 L185,0 L0,0 L0,56 L77.4436508,56 L92.5563492,71.1126984 L107.669048,56 Z" id="Combined-Shape" fill="#000000"></path>
-                </g>
-            </svg>  
-                <div class="tooltip__content" id="info-smaug">Share on Twitter</div>
-            </div>
-        </div>
 
         {{!-- Everything inside the #author tags pulls data from the author --}}
         {{#author}}
@@ -77,5 +66,10 @@
         <div class="comments"></div>
     </div>
 
+    <div class="tooltip tooltip--smaug" data-type="smaug">
+        <div class="tooltip-base"> 
+            <div class="tooltip-content"></div>
+        </div>
+    </div>
 
 {{/post}}
