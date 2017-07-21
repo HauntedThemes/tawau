@@ -311,6 +311,17 @@ jQuery(document).ready(function($) {
         if ($('body').hasClass('scroll') && !$('body').hasClass('overflow-y')) {
             return;
         };
+
+        if ($('body, html').hasClass('end-search-trigger') && $(this).hasClass('nav-trigger')) {
+            $('body, html').removeClass('begin-search-trigger end-search-trigger').addClass('begin-nav-trigger end-nav-trigger');
+            return;
+        };
+
+        if ($('body, html').hasClass('end-nav-trigger') && $(this).hasClass('search-trigger')) {
+            $('body, html').removeClass('begin-nav-trigger end-nav-trigger').addClass('begin-search-trigger end-search-trigger');
+            return;
+        };
+
         if (!$('body').hasClass('end')) {
             if (!$('body').hasClass('begin')) {
                 morphStart(className);

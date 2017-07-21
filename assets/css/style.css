@@ -637,7 +637,7 @@ header .nav-trigger i{
     transition: background 0.3s ease-in-out;
 }
 
-.overflow-y header .nav-trigger i{
+.begin-nav-trigger header .nav-trigger i{
     background: transparent;
 }
 
@@ -660,14 +660,14 @@ header .nav-trigger i:after{
     bottom: -8px;
 }
 
-.overflow-y header .nav-trigger i:before{
+.begin-nav-trigger header .nav-trigger i:before{
     -webkit-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
     top: 0;
 }
 
-.overflow-y header .nav-trigger i:after{
+.begin-nav-trigger header .nav-trigger i:after{
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -1237,7 +1237,6 @@ footer form button[type="submit"]:before,
 
 .tag-title h1{
     height: 100px;
-    width: 944.78px;
     color: #000000;
     font-size: 40px;
     line-height: 100px;
@@ -1413,16 +1412,80 @@ footer form button[type="submit"]:before,
         top: 100px;
         left: 0;
         width: 100%;
-        background: #fff100;
+        visibility: hidden;
+        opacity: 0;
+        z-index: -1;
+        padding-bottom: 50px;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
     }
     header nav ul li{
         display: block;
         margin: 15px;
         text-align: center;
     }
+    header .search-container{
+        opacity: 0;
+        visibility: hidden;
+        z-index: -1;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+    .end-nav-trigger header,
+    .end-search-trigger header{
+        background: #fff100;
+    }
+    .begin-nav-trigger header nav ul,
+    .begin-search-trigger .search-container{
+        display: block;
+        z-index: 1;
+    }
+    .end-nav-trigger header nav ul,
+    .end-search-trigger .search-container{
+        visibility: visible;
+        opacity: 1;
+    }
+    #results li a, #results p{
+        font-size: 24px;
+        line-height: 32px;
+    }
+    #results{
+        max-width: 80%;
+    }
+    #results li{
+        padding-bottom: 25px;
+    }
+    header .search-container form{
+        margin-bottom: 0;
+    }
+    header .search-container form{
+        margin: 0 auto;
+    }
     header .header-container{
-/*        padding-left: 15px;
-        padding-right: 15px;*/
+        padding: 20px 15px;
+    }
+    #content,
+    .author-template .author {
+        margin-top: 100px;
+    }
+    .author p{
+        padding: 0 15px;
+    }
+    #morphing{
+        top: 64px;
+    }
+    .tag-title h1{
+        font-size: 24px;
+    }
+    .tag-title{
+        margin-top: 100px;
+    }
+    .tag-template #content {
+        margin-top: 40px;
     }
 }
 
