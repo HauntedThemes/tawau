@@ -2,18 +2,15 @@
     "name": "tawau",
     "description": "We love this one! It would be best described as the realm of the wordsmiths where content is king. It's easier to check it out and get convinced for yourself.",
     "demo": "https://tawau.hauntedthemes.com/",
-    "version": "1.0.0",
+    "version": "1.0.2",
+    "license": "GNU General Public License, Version 2",
     "engines": {
         "ghost": ">=1.0.0"
-    },
-    "screenshots": {
-        "desktop": "assets/screenshot-desktop.jpg",
-        "mobile": "assets/screenshot-mobile.jpg"
     },
     "author": {
         "name": "HauntedThemes",
         "email": "contact@hauntedthemes.com",
-        "url": "https://hauntedthemes.com"
+        "url": "https://www.hauntedthemes.com"
     },
     "gpm": {
         "type": "theme",
