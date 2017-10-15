@@ -687,6 +687,10 @@
             text-decoration: none;
         }
 
+        .content-holder{
+            margin-bottom: 20px;
+        }
+
         time {
             color: #000000;
             font-weight: bold;
@@ -750,8 +754,7 @@
             display: block;
             padding: 0;
             min-width: 0;
-            max-width: 112%; /* fallback when calc doesn't work */
-            width: calc(100% + 32px); /* expand with to image + margins */
+            width: 100%; /* expand with to image + margins */
             height: auto;
             transform: translateX(-50%);
 
@@ -845,7 +848,7 @@
             <div class="content-holder">
                 {{#if feature_image}}
                     <a href="{{img_url feature_image}}">
-                        <img src="{{img_url feature_image}}" alt="{{title}}">
+                        <amp-img src="{{img_url feature_image absolute="true"}}" width="600" height="400" layout="responsive"></amp-img>
                     </a>
                 {{/if}}
             </div>

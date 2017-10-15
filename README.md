@@ -1,4 +1,4 @@
-Tawau by HauntedThemes
+Tawau by Haunted Themes
 ============================
 
 > Copyright (C) 2017, HauntedThemes SRL
