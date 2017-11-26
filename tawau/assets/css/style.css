@@ -711,8 +711,8 @@ header .nav-trigger i:after{
 #content .post .post-title{
     font-size: 70px;
     line-height: 85px;
-    margin-top: 20px;
-    margin-bottom: 35px;
+    max-width: calc(100% - 30px);
+    margin: 20px 15px 35px;
 }
 
 #content .post .content-holder{
