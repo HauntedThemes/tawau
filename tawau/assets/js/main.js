@@ -114,8 +114,29 @@ jQuery(document).ready(function($) {
 
     $('.zoom').fluidbox();
 
+    var shareHeight = $('.content-inner .social-share').height();
     $(window).on('scroll', function(event) {
         $('.zoom').fluidbox('close');
+
+        var checkShare = 0;
+        
+        $('.content-inner .kg-image-wide, .content-inner .kg-image-full').each(function(index, el) {
+            var scrollTop = $(window).scrollTop();
+            var elementOffset = $(this).offset().top;
+            var imgDistance = (elementOffset - scrollTop);
+            var imgHeight = $(this).height();
+            var shareDistance = shareHeight + 100;
+            if (imgDistance < shareDistance && (imgDistance + imgHeight) > 100) {
+                checkShare++;
+            };
+        });
+
+        if (checkShare > 0) {
+            $('.content-inner .social-share').addClass('fade');
+        }else{
+            $('.content-inner .social-share').removeClass('fade');
+        };
+
     });
 
     // Initialize shareSelectedText
@@ -491,5 +512,10 @@ jQuery(document).ready(function($) {
         
         lastScrollTop = st;
     }
+
+    // Initialize Highlight.js
+    $('pre code, pre').each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
 
 });

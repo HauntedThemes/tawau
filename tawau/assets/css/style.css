@@ -205,12 +205,17 @@ code{
     color: #555555;
 }
 
+.hljs{
+    background-color: #f7f7f7;
+    padding: 17px 10px;
+}
+
 pre{
     font-family: monospace;
     background-color: #f7f7f7;
     display: block;
     border: 1px solid #f7f7f7;
-    padding: 22px 25px;
+    padding: 17px 10px;
     font-size: 14px;
     line-height: 25px;
     white-space: pre;
@@ -335,9 +340,12 @@ time{
     text-transform: uppercase;
 }
 
-iframe{
-    margin: 0 auto;
-    display: block;
+figure{
+    margin: 0;
+}
+
+.main-container{
+    overflow-x: hidden;
 }
 
 .container{
@@ -736,8 +744,28 @@ header .nav-trigger i:after{
     transition: opacity .3s ease-in-out;
 }
 
+#content .post .content-holder img.kg-image-wide{
+    max-width: calc(100% + 300px);
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+}
+
+#content .post .content-holder img.kg-image-full{
+    max-width: 100vw;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+}
+
 #content .post .content-holder .img-holder:hover img{
     opacity: .8;
+}
+
+#content .content-holder figcaption{
+    border-bottom: 1px solid #e9e9e9;
+    padding: 10px 0px;
+    font-size: 14px;
 }
 
 #content .post hr{
@@ -800,7 +828,12 @@ header .nav-trigger i:after{
     text-transform: uppercase;
     opacity: 1;
     z-index: 998;
-    transition: visibility 0s linear .3s,opacity .3s 0s;
+    transition: all .3s;
+}
+
+.content-inner .content-holder .social-share.fade{
+    opacity: 0;
+    visibility: hidden;
 }
 
 .content-inner .content-holder .social-share.active{
@@ -854,6 +887,15 @@ header .nav-trigger i:after{
     margin-top: 20px;
 }
 
+.content-inner iframe{
+    max-width: 100% !important;
+    margin: 30px 0;
+}
+
+.content-inner iframe[src*="https://www.youtube.com/"] {
+    height: calc(750px / 1.77777778) !important;
+    width: 100% !important;
+}
 
 .post-footer{
     text-align: center;
@@ -1061,11 +1103,11 @@ header .nav-trigger i:after{
     color: #B7B7B7;
 }
 
-.author .social a.facebook:hover:before{
+.author .social a.facebook:hover{
     color: #3b5998;
 }
 
-.author .social a.twitter:hover:before{
+.author .social a.twitter:hover{
     color: #1da1f2;
 }
 
@@ -1406,20 +1448,11 @@ footer form button[type="submit"]:before,
 }
 
 .social a:before{
-    font-family: 'icons';
     color: #000000;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-}
-
-.social .facebook:before {
-    content: "\e901";
-}
-
-.social .twitter:before {
-    content: "\e902";
 }
 
 .gh-input.error{
@@ -1531,6 +1564,12 @@ footer form button[type="submit"]:before,
     .content-inner .content-holder .social-share a:not(.img-holder){
         display: inline-block;
         margin: 25px 10px;
+    }
+    #content .post .content-holder img.kg-image-wide{
+        max-width: 100vw;
+    }
+    .content-inner iframe[src*="https://www.youtube.com/"] {
+        height: calc(690px / 1.77777778) !important;
     }
     .tag-title h1{
         height: 40px;
@@ -1703,6 +1742,9 @@ footer form button[type="submit"]:before,
         -ms-transform: translateX(-50%);
         transform: translateX(-50%);
     }
+   .content-inner iframe[src*="https://www.youtube.com/"] {
+        height: calc((100vw - 30px) / 1.77777778) !important;
+    } 
     #disqus_thread{
         padding-left: 15px;
         padding-right: 15px;
