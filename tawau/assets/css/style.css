@@ -190,6 +190,9 @@ blockquote{
     border-left: 10px solid #FFF100;
     padding-left: 20px;
     font-style: italic;
+    margin: 20px 0;
+    font-size: 20px;
+    line-height: 30px;
 }
 
 code{
@@ -744,14 +747,14 @@ header .nav-trigger i:after{
     transition: opacity .3s ease-in-out;
 }
 
-#content .post .content-holder img.kg-image-wide{
+#content .post .content-holder .kg-width-wide img{
     max-width: calc(100% + 300px);
     left: 50%;
     position: relative;
     transform: translateX(-50%);
 }
 
-#content .post .content-holder img.kg-image-full{
+#content .post .content-holder .kg-width-full img{
     max-width: 100vw;
     left: 50%;
     position: relative;
