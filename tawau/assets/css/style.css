@@ -348,7 +348,7 @@ figure{
 }
 
 .main-container{
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .container{
@@ -1042,6 +1042,10 @@ header .nav-trigger i:after{
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    object-fit: cover;
 }
 
 .author .author-image .img:hover img{
