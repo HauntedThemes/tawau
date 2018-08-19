@@ -514,7 +514,7 @@ jQuery(document).ready(function($) {
     }
 
     // Initialize Highlight.js
-    $('pre code, pre').each(function(i, block) {
+    $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
     });
 
