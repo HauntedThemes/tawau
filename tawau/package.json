@@ -2,7 +2,7 @@
     "name": "tawau",
     "description": "We love this one! It would be best described as the realm of the wordsmiths where content is king. It's easier to check it out and get convinced for yourself.",
     "demo": "https://tawau.hauntedthemes.com/",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "license": "GNU General Public License, Version 2",
     "engines": {
         "ghost": ">=1.0.0"

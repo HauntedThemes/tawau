@@ -19,8 +19,12 @@ jQuery(document).ready(function($) {
         lastScrollTop = 0,
         delta = 5;
 
+    setGalleryRation();
+
     // Execute on load
     $(window).on('load', function(event) {
+
+        setGalleryRation();
         setMorphHeight();
 
         var currentPage = 1;
@@ -517,5 +521,16 @@ jQuery(document).ready(function($) {
     $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
     });
+
+    // Set the right proportion for images inside the gallery
+    function setGalleryRation(){
+        $('.kg-gallery-image img').each(function(index, el) {
+            var container = $(this).closest('.kg-gallery-image');
+            var width = $(this)[0].naturalWidth;
+            var height = $(this)[0].naturalHeight;
+            var ratio = width / height;
+            container.attr('style', 'flex: ' + ratio + ' 1 0%');
+        });
+    }
 
 });
