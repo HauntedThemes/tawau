@@ -1,23 +1,21 @@
     <footer class="site-footer clearfix">
         <div class="container">
-            {{#if @labs.publicAPI}}
-                {{#get "tags" limit="all" include="count.posts"}}
-                    {{#if tags}}
-                        <div class="tags">
-                            <h3>{{t "Tags"}}</h3>
-                            <ul>
-                                {{#foreach tags}}
-                                    {{#if count.posts}}
-                                        <li>
-                                            <a href="{{url}}">{{name}}</a>
-                                        </li>
-                                    {{/if}}
-                                {{/foreach}}
-                            </ul>
-                        </div>
-                    {{/if}}
-                {{/get}}
-            {{/if}}
+            {{#get "tags" limit="all" include="count.posts"}}
+                {{#if tags}}
+                    <div class="tags">
+                        <h3>{{t "Tags"}}</h3>
+                        <ul>
+                            {{#foreach tags}}
+                                {{#if count.posts}}
+                                    <li>
+                                        <a href="{{url}}">{{name}}</a>
+                                    </li>
+                                {{/if}}
+                            {{/foreach}}
+                        </ul>
+                    </div>
+                {{/if}}
+            {{/get}}
             {{#if @labs.subscribers}}
             <div class="newsletter">
                 <h3>{{t "Newsletter"}}</h3>

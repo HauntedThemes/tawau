@@ -14,7 +14,7 @@
             <div class="content-holder">
                 {{#if feature_image}}
                     <a href="{{img_url feature_image}}" class="zoom">
-                        <img src="{{img_url feature_image}}" alt="{{title}}">
+                        <img src="{{img_url feature_image size="m"}}" alt="{{title}}">
                     </a>
                 {{/if}}
             </div>
@@ -41,7 +41,7 @@
                     <section class="author container">
                         {{#if profile_image}}
                         <figure class="author-image">
-                            <a class="img" href="{{url}}" title="{{name}}"><img src="{{img_url profile_image}}" alt="{{name}}"></a>
+                            <a class="img" href="{{url}}" title="{{name}}"><img src="{{img_url profile_image size="xs"}}" alt="{{name}}"></a>
                         </figure>
                         {{/if}}
 

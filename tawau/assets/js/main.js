@@ -9,7 +9,9 @@ jQuery(document).ready(function($) {
         'load-more': true,
         'infinite-scroll': false,
         'infinite-scroll-step': 3,
-        'disqus-shortname': 'hauntedthemes-demo'
+        'disqus-shortname': 'hauntedthemes-demo',
+        'content-api-host': '',
+        'content-api-key': '',
     };
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -18,6 +20,12 @@ jQuery(document).ready(function($) {
         didScroll,
         lastScrollTop = 0,
         delta = 5;
+
+    var ghostAPI = new GhostContentAPI({
+        host: config['content-api-host'],
+        key: config['content-api-key'],
+        version: 'v2'
+    });
 
     setGalleryRation();
 
@@ -209,24 +217,15 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // Initialize ghostHunter - A Ghost blog search engine
-    $("#search-field").ghostHunter({
-        results             : "#results",
-        onKeyUp             : true,
-        zeroResultsInfo     : true,
-        displaySearchInfo   : true,
-        info_template       : "<p>"+ $("#results").attr('data-no-results') +"</p>",
-        result_template     : "<li><a href='{{link}}' title='{{title}}'>{{title}}</a></li>",
-        onComplete      : function( results ){
-            if (results.length == 0 && $('#search-field').val() != '') {
-                $('#results p').addClass('empty');
-            };
-            $('#results li').each(function(index, el) {
-                if (index > 11) {
-                    $(this).hide();
-                };
-            });
-        }
+    var ghostSearch = new GhostSearch({
+        host: config['content-api-host'],
+        key: config['content-api-key'],
+        input: '#search-field',
+        results: '#results',
+        template: function(result) {
+            let url = [location.protocol, '//', location.host].join('');
+            return '<li><a href="' + url + '/' + result.slug + '/">' + result.title + '</a></li>';  
+        },
     });
 
     // Validate Subscribe input
