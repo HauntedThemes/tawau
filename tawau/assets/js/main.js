@@ -504,8 +504,11 @@ jQuery(document).ready(function($) {
         
         if(Math.abs(lastScrollTop - st) <= delta)
             return;
-        
-        if (st > lastScrollTop){
+
+        if(st <= 0 || lastScrollTop <= 0){
+            console.log('do this');
+            $('body').removeClass('scroll');
+        }else if (st > lastScrollTop){
             $('body').addClass('scroll');
         } else {
             if(st + $(window).height() < $(document).height()) {
